@@ -1,35 +1,26 @@
-import { Container, Form, Nav, Navbar, Card, Row, Col } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import './App.css'
-import PostList from './components/PostList'
-import ThemeToggle from './components/ThemeToggle'
 import { ThemeProvider } from './context/ThemeContext'
-import SearchBar from './components/SearchBar'
-import TitleSync from './components/TitleSync'
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Barra from './components/Barra'
+import Home from './components/Home'
+import Usuario from './components/Usuario'
+import Productos from './components/Productos'
 
 function App() {
-  const [search, setSearch] = useState('')  
-
   return (
     <>
     <ThemeProvider>
-      <Navbar bg='primary' variant='dark' className='mb-4'>
+      <Router>
+        <Barra />
         <Container>
-         <Navbar.Brand>hooks en react</Navbar.Brand>
-         <Nav className="ms-auto">
-          <ThemeToggle />
-         </Nav>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/usuario" element={<Usuario />} />
+            <Route path="/productos" element={<Productos />} />
+          </Routes>
         </Container>
-      </Navbar>
-      <Container>
-        <Card className='p-3 mb-3'>
-          <TitleSync />
-        </Card>
-        <Card className='p-3 mb-3'>
-          <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
-          <PostList searchTerm={search} />
-        </Card>
-      </Container>
+      </Router>
     </ThemeProvider>
 </>
   )
